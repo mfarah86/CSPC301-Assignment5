@@ -20,7 +20,6 @@ void viewOutstanding(vector <Book *> &b, vector <Person *> &cHolders);
 int newCard(vector <Person *> &cHolders, int nextID);
 void closeCard(vector <Book *> &b, vector <Person *> &cHolders);
 void closeMenu(vector <Book *> &b, vector <Person *> &cHolders);
-void updateRecord(vector <Book *> &b, vector <Person *> &cHolders);
 Book * searchBook(vector<Book *> myBooks, int id);
 Person * searchPerson(vector <Person *> &cHolders, int id);
 
@@ -127,8 +126,6 @@ void loadBooks(vector<Book *> &b)
     inFile >> id;
     i++;
   }
-
-
 }
 
 int loadPersons(vector<Person *> &cHolders)
@@ -224,7 +221,6 @@ void bookReturn(vector <Book *> &b, vector <Person *> &cHolders)
     book->setPersonPtr(nullptr);
     cout << "You have returned " << book->getTitle() << "..." << endl;
   }
-
 }
 
 void viewBooks(vector <Book *> &b)
@@ -301,11 +297,7 @@ void closeCard(vector <Book *> &b, vector <Person *> &cHolders)
   cout << "Please enter the card ID: ";
   cin >> cardID;
   card = searchPerson(cHolders, cardID);
-  if(card==nullptr)
-  {
-    cout << "Card ID not found..." << endl;
-  }
-  else
+  if(card != nullptr)
   {
     if(card->getActive() == false)
     {
@@ -324,7 +316,6 @@ void closeCard(vector <Book *> &b, vector <Person *> &cHolders)
           count++;
         }
       }
-
       if(count!=0)
       {
         cout << "Please return the above books..." << endl;
@@ -347,12 +338,7 @@ void closeCard(vector <Book *> &b, vector <Person *> &cHolders)
   }
 }
 
-void closeMenu(vector <Book *> &b, vector <Person *> &c)
-{
-  updateRecord(b, c);
-}
-
-void updateRecord(vector <Book *> &b, vector <Person *> &cHolders)
+void closeMenu(vector <Book *> &b, vector <Person *> &cHolders)
 {
   ofstream rentals("rentals.txt");
   ofstream persons("persons.txt");
@@ -372,7 +358,6 @@ void updateRecord(vector <Book *> &b, vector <Person *> &cHolders)
     << cHolders.at(i)->fullName() << endl;
     delete cHolders.at(i);
   }
-
 }
 
 Book * searchBook(vector<Book *> myBooks, int id)
